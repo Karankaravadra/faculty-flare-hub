@@ -1,7 +1,12 @@
 
 import { GraduationCap, BookOpen, Users } from 'lucide-react';
+import { useState } from 'react';
+import { LoginForm } from './LoginForm';
 
 export const HeroSection = () => {
+  const [showStudentLogin, setShowStudentLogin] = useState(false);
+  const [showFacultyLogin, setShowFacultyLogin] = useState(false);
+
   return (
     <section className="pt-32 pb-16 px-4 bg-gradient-to-b from-primary/5 to-transparent">
       <div className="max-w-7xl mx-auto">
@@ -16,11 +21,17 @@ export const HeroSection = () => {
             Join our community of learners and expert faculty members. Discover courses that will shape your future.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2">
+            <button 
+              onClick={() => setShowStudentLogin(true)}
+              className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2"
+            >
               <GraduationCap size={20} />
               Student Login
             </button>
-            <button className="bg-white hover:bg-gray-50 text-primary border-2 border-primary px-6 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2">
+            <button 
+              onClick={() => setShowFacultyLogin(true)}
+              className="bg-white hover:bg-gray-50 text-primary border-2 border-primary px-6 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2"
+            >
               <Users size={20} />
               Faculty Login
             </button>
@@ -43,6 +54,20 @@ export const HeroSection = () => {
           ))}
         </div>
       </div>
+
+      {showStudentLogin && (
+        <LoginForm 
+          type="student" 
+          onClose={() => setShowStudentLogin(false)} 
+        />
+      )}
+
+      {showFacultyLogin && (
+        <LoginForm 
+          type="faculty" 
+          onClose={() => setShowFacultyLogin(false)} 
+        />
+      )}
     </section>
   );
 };
